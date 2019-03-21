@@ -1,0 +1,3 @@
+Jonathan will be building the UI, and integrating the speech recognition library.
+Shay will work on the parser, determining whether a command is valid, and choosing the correct function to call to execute the command.
+Ty will work on the processor, which actually executes the command. (Prof. Sabal will help here).
