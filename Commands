@@ -1,0 +1,19 @@
+Project management commands:
+OPEN [NEW] PROJECT <Name>
+SAVE PROJECT <Name>
+RUN PROJECT
+
+Program navigation commands:
+READ LINE|LINES <number> TO <number>|[THE]END
+STOP READING
+[GO TO THE][BEGINNING OF | END OF] LINE <number>
+CHANGE LINE <number> TO <command>
+
+Memory commands:
+CREATE VARIABLE <name>
+CREATE ARRAY <name> [INCLUDES <values>]
+SORT <name> NUMERICALLY|ALPHABETICALLY
+SET <name> [EQUAL] TO <value>
+SEPARATE <name> BY <value> # Takes a string and creates an array of strings, split by <value>.
+COMMENT ... END COMMENT
+JOIN <name> TO <name>
