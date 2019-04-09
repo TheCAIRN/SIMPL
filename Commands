@@ -16,4 +16,8 @@ SORT <name> NUMERICALLY|ALPHABETICALLY
 SET <name> [EQUAL] TO <value>
 SEPARATE <name> BY <value> # Takes a string and creates an array of strings, split by <value>.
 COMMENT ... END COMMENT
-JOIN <name> TO <name>
+JOIN <name> TO <name> [AS <name>] # If the third name exists, assign the result to that variable, otherwise assign it to the first.
+
+Output commands:
+SAY [VARIABLE] <name> # Use speech synthesis to dictate the value of the variable
+PRINT [VARIABLE] <name> # Display the contents of the variable on the console
