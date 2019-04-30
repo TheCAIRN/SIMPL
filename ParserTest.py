@@ -7,5 +7,7 @@ Created on Tue Apr  9 17:02:34 2019
 
 import TheActualOne as p
 parser = p.Parser()
-parser.parse("CREATE VARIABLE Hello")
-parser.parse("CREATE VARIABLE World")
+filename = "TestOne.SIMPL"
+fp = open(filename,"r")
+for line in fp:
+    p.input(line)
