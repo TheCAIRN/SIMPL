@@ -1,8 +1,14 @@
-# -*- coding: utf-8 -*-
 """
 Created on Wed Mar 27 08:47:24 2019
+@authors: msabal, tc595
 
-@author: msabal
+Notes:
+
+created create_array function
+created comment function
+created sort function
+created separate function
+
 """
 class SIMPL_Processor:
     import TheActualOne as p
@@ -42,9 +48,25 @@ class SIMPL_Processor:
         return
     
     def create_array(self,name):
+        #insert array into symbols
+        arr = []
+        
+        #create array
+        for name in arr:
+            symbols.append(name)
+            
         return
     
-    def sort(self,name):
+    def sort(self,name,arr):
+        length = len(arr)
+        
+        for i in range(length):
+            for i in range(0, length - i -1):
+                if arr[j] > arr[j+1] :
+                    arr[j], arr[j+1] = arr[j+1], arr[j]
+                    
+        self.symbols[name] = arr
+        
         return
     
     def assign_value(self,name,value):
@@ -52,9 +74,21 @@ class SIMPL_Processor:
         return
     
     def separate(self,name,value):
+        str = ""
+        for value in str:
+            str.split(value)
+            
+        self.symbols[name] = str
+        
         return
     
     def comment(self,comment):
+        #insert comment into symbols
+        comment = ""
+
+        #create comment
+        self.symbols[name] = "#" + comment
+        
         return
     
     def join(self,name1,name2):
@@ -67,9 +101,3 @@ class SIMPL_Processor:
             print(self.symbols[name])
         if target == 1:
             # To do
-            
-    
-    
-    
-    
-    
