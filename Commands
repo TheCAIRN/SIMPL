@@ -18,6 +18,12 @@ SEPARATE <name> BY <value> # Takes a string and creates an array of strings, spl
 COMMENT ... END COMMENT
 JOIN <name> TO <name> [AS <name>] # If the third name exists, assign the result to that variable, otherwise assign it to the first.
 
+Math commands:
+** TO DO **
+
 Output commands:
 SAY [VARIABLE] <name> # Use speech synthesis to dictate the value of the variable
 PRINT [VARIABLE] <name> # Display the contents of the variable on the console
+
+Input commands:
+** TO DO **
