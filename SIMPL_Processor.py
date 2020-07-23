@@ -1,6 +1,7 @@
 """
-Created on Wed Mar 27 08:47:24 2019
-@authors: msabal, tc595, mtapia
+Info:
+- Started Wed Mar 27 08:47:24 2019 - Ongoing
+- @authors: msabal, tc595, mtapia
 
 Notes:
 - created create_array function
@@ -14,7 +15,7 @@ how-to-read-a-file-line-by-line-into-a-list
 """
 
 import os.path
-#import TheActualParser as p
+# import TheActualParser as p
 
 
 class SIMPL_Processor:
