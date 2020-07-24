@@ -77,11 +77,8 @@ class SIMPL_Processor:
         self.code[number-1] = command
 
     def create_variable(self, name):
-        # TODO: insert string into symbols
-        str = ""
-        self.symbols[name] = str
-
-        return
+        # Creates An Undefined (None) Variable And Stores It In Hash Table
+        self.symbols[name] = None
 
     def create_array(self, name):
         # TODO: insert array into symbols
