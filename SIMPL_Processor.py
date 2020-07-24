@@ -15,7 +15,7 @@ how-to-read-a-file-line-by-line-into-a-list
 """
 
 import os.path
-# import TheActualParser as p
+# import SIMPL_Parser as p
 
 
 class SIMPL_Processor:
@@ -27,28 +27,38 @@ class SIMPL_Processor:
         self.current_line = 0
 
     def open_project(self, name):
+        # Opens Project & Stores Info
         root, ext = os.path.splitext(name)
 
+        # Check If Extension's There
         if not ext:
             ext = ".simpl"
         elif ext != ".simpl":
             print("Invalid project type")
             return
 
-        path = root + ext
+        path = root + ext  # Compose Path
 
-        # Opens Project & Stores Info
+        # Check If File Exists
         if os.path.isfile(path):
             with open(path) as file_in:
                 for line in file_in:
                     self.code.append(line.rstrip())
-            self.current_project = path.replace(".simpl", "")
+            self.current_project = path
         else:
             print("Project non-existent")
 
-    def save_project(self, name):
+    def save_project(self):
         # Saves Project To File
-        return
+        cp = self.current_project
+        if (cp == ""):
+            print("No project opened!")
+        else:
+            file = open(cp, "w")
+            for instruction in self.code:
+                file.write(f"{instruction}\n")
+            file.close()
+            print("Successfully saved!")
 
     def run_project(self):
         # Goes Over Lines, Parser Sends Each Command Here
@@ -63,17 +73,18 @@ class SIMPL_Processor:
             return ""
 
     def change(self, number, command):
-        self.code[number] = command
+        # Changes Instruction At Line
+        self.code[number-1] = command
 
     def create_variable(self, name):
-        # insert string into symbols
+        # TODO: insert string into symbols
         str = ""
         self.symbols[name] = str
 
         return
 
     def create_array(self, name):
-        # insert array into symbols
+        # TODO: insert array into symbols
         arr = []
 
         # create array
@@ -83,6 +94,7 @@ class SIMPL_Processor:
         return
 
     def sort(self, name, arr):
+        # TODO: Sort
         length = len(arr)
 
         for i in range(length):
@@ -95,10 +107,12 @@ class SIMPL_Processor:
         return
 
     def assign_value(self, name, value):
+        # TODO: Assign Values
         self.symbols[name] = value
         return
 
     def separate(self, name, value):
+        # TODO: Separate
         str = ""
         for value in str:
             str.split(value)
@@ -108,7 +122,7 @@ class SIMPL_Processor:
         return
 
     def comment(self, comment):
-        # insert comment into symbols
+        # TODO: insert comment into symbols
         # comment = ""
 
         # create comment
@@ -117,9 +131,11 @@ class SIMPL_Processor:
         return
 
     def join(self, name1, name2):
+        # TODO: Join
         return self.symbols[name1] + " " + self.symbols[name2]
 
     def say(self, target, name):
+        # TODO: Say
         # If target = 0, print to console
         # If target = 1, call the text-to-speech engine
         if target == 0:
@@ -131,6 +147,10 @@ class SIMPL_Processor:
 
 main_processor = SIMPL_Processor()
 
-main_processor.open_project("ProcessorTest.simpl")
+main_processor.open_project("./projects/ProcessorTest.simpl")
 
+print(main_processor.code)
 print(f"Find Line Cmd: {main_processor.line(1)}")
+main_processor.change(0, "other")
+main_processor.save_project()
+print(main_processor.code)
