@@ -27,12 +27,22 @@ class SIMPL_Processor:
         self.current_line = 0
 
     def open_project(self, name):
+        root, ext = os.path.splitext(name)
+
+        if not ext:
+            ext = ".simpl"
+        elif ext != ".simpl":
+            print("Invalid project type")
+            return
+
+        path = root + ext
+
         # Opens Project & Stores Info
-        if os.path.isfile(name):
-            with open(name) as file_in:
+        if os.path.isfile(path):
+            with open(path) as file_in:
                 for line in file_in:
                     self.code.append(line.rstrip())
-            self.current_project = name  # TODO: Remove .simpl if there
+            self.current_project = path.replace(".simpl", "")
         else:
             print("Project non-existent")
 
@@ -47,8 +57,8 @@ class SIMPL_Processor:
 
     def line(self, number):
         # Gives Line Requested By Parser Or Nothing If Non-Existent
-        if number >= 0 and number < self.code.count:
-            return self.code[number]
+        if number > 0 and number <= len(self.code):
+            return self.code[number-1]
         else:
             return ""
 
@@ -123,5 +133,4 @@ main_processor = SIMPL_Processor()
 
 main_processor.open_project("ProcessorTest.simpl")
 
-print(main_processor.code)
-print(main_processor.current_project)
+print(f"Find Line Cmd: {main_processor.line(1)}")
