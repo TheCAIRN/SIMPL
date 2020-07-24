@@ -16,11 +16,11 @@ Voice controlled programming language! Developed with Python and Google Speech A
 
 ## Project Structure:
 
-├── **docs** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # General documents / documentation ([View](docs/)) \
-├── **pocket_sphinx** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Legacy pocket_sphinx code ([View](pocket_sphinx/)) \
-├── **projects** &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; # Example SIMPL projects ([View](projects/)) \
-├── **tests** &nbsp; # Code tests and trails ([View](tests/)) \
-├── **Z-Extra** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; # Extra files ([View](Z-Extra/)) \
+├── **docs** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;# General documents / documentation ([View](docs/)) \
+├── **pocket_sphinx** &nbsp; &nbsp;# Legacy pocket_sphinx code ([View](pocket_sphinx/)) \
+├── **projects** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Example SIMPL projects ([View](projects/)) \
+├── **tests** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Code tests and trails ([View](tests/)) \
+├── **Z-Extra** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Extra files ([View](Z-Extra/))
 
 Driver Code Located **HERE** At Root Level (_Ex: SIMPL_Parser.py_)
 
