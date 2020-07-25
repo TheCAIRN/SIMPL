@@ -20,6 +20,11 @@ JOIN <name> TO <name> [AS <name>] # If the third name exists, assign the result 
 
 Math commands:
 ** TO DO **
+ABSOLUTE VALUE <number>
+CIRCUMFERENCE <radius> <unit of measurement>
+AREA OF CIRCLE <radius> <unit of measurement>
+GREATEST COMMON DENOMINATOR <number> <number>
+VOLUME <shape> <unit of measurement>
 
 Output commands:
 SAY [VARIABLE] <name> # Use speech synthesis to dictate the value of the variable
