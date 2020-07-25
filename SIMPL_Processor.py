@@ -20,7 +20,7 @@ import os.path
 
 class SIMPL_Processor:
     def __init__(self):
-        # self.parser = p.Parser()
+        # self.parser = p()
         self.symbols = {}
         self.code = []
         self.current_project = ""
@@ -35,7 +35,7 @@ class SIMPL_Processor:
             ext = ".simpl"
         elif ext != ".simpl":
             print("Invalid project type")
-            return
+            return -1  # ? Should we have a convention for "invalid" operations
 
         path = root + ext  # Compose Path
 
@@ -47,12 +47,14 @@ class SIMPL_Processor:
             self.current_project = path
         else:
             print("Project non-existent")
+            return -1
 
     def save_project(self):
         # Saves Project To File
         cp = self.current_project
-        if (cp == ""):
+        if cp == "":
             print("No project opened!")
+            return -1
         else:
             file = open(cp, "w")
             for instruction in self.code:
@@ -70,43 +72,41 @@ class SIMPL_Processor:
         if number > 0 and number <= len(self.code):
             return self.code[number-1]
         else:
-            return ""
+            print("Line does not exist")
+            return -1
 
     def change(self, number, command):
         # Changes Instruction At Line
-        self.code[number-1] = command
+        if number > 0 and number <= len(self.code):
+            self.code[number-1] = command
+        else:
+            return -1
 
     def create_variable(self, name):
-        # Creates An Undefined (None) Variable And Stores It In Hash Table
-        self.symbols[name] = None
+        # Creates An Undefined (None) Variable And Stores It In Symbol H.Table
+        if name in self.symbols:  # ? Variable Override. How Should We Handle?
+            return -1
+        else:
+            self.symbols[name] = None
 
     def create_array(self, name):
-        # TODO: insert array into symbols
-        arr = []
-
-        # create array
-        for name in arr:
-            self.symbols.append(name)
-
-        return
+        # Creates An Empty Array And Stores It In Symbol H.Table
+        self.symbols[name] = []
 
     def sort(self, name, arr):
-        # TODO: Sort
-        length = len(arr)
-
-        for i in range(length):
-            for j in range(0, length - i - 1):
-                if arr[j] > arr[j+1]:
-                    arr[j], arr[j+1] = arr[j+1], arr[j]
-
-        self.symbols[name] = arr
-
-        return
+        # Sorts Array
+        if isinstance(arr, list):
+            arr.sort()  # Use Python Built-In Sort (In-Place)
+            self.symbols[name] = arr
+        else:
+            print("Item is not sortable")
 
     def assign_value(self, name, value):
-        # TODO: Assign Values
-        self.symbols[name] = value
-        return
+        # Assigns Value To Symbol
+        if name in self.symbols:  # Variable Override
+            self.symbols[name] = value
+        else:  # Variable Assignment
+            self.symbols[name] = value
 
     def separate(self, name, value):
         # TODO: Separate
@@ -128,8 +128,13 @@ class SIMPL_Processor:
         return
 
     def join(self, name1, name2):
-        # TODO: Join
-        return self.symbols[name1] + " " + self.symbols[name2]
+        # Concatenate Two Variables Together
+        a_exp = self.symbols[name1] if name1 in self.symbols else False
+        b_exp = self.symbols[name2] if name2 in self.symbols else False
+
+        both_valued = a_exp is not False and b_exp is not False
+
+        return f"{a_exp}{b_exp}" if both_valued else -1
 
     def say(self, target, name):
         # TODO: Say
@@ -142,12 +147,12 @@ class SIMPL_Processor:
             return
 
 
-main_processor = SIMPL_Processor()
+# main_processor = SIMPL_Processor()
 
-main_processor.open_project("./projects/ProcessorTest.simpl")
+# main_processor.open_project("./projects/ProcessorTest.simpl")
 
-print(main_processor.code)
-print(f"Find Line Cmd: {main_processor.line(1)}")
-main_processor.change(0, "other")
-main_processor.save_project()
-print(main_processor.code)
+# print(main_processor.code)
+# print(f"Find Line Cmd: {main_processor.line(1)}")
+# main_processor.change(0, "other")
+# main_processor.save_project()
+# print(main_processor.code)
