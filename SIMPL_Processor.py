@@ -20,7 +20,7 @@ import os.path
 
 class SIMPL_Processor:
     def __init__(self):
-        # self.parser = p()
+        # self.parser = p.Parser()
         self.symbols = {}
         self.code = []
         self.current_project = ""
@@ -35,7 +35,7 @@ class SIMPL_Processor:
             ext = ".simpl"
         elif ext != ".simpl":
             print("Invalid project type")
-            return -1  # ? Should we have a convention for "invalid" operations
+            return
 
         path = root + ext  # Compose Path
 
@@ -47,14 +47,12 @@ class SIMPL_Processor:
             self.current_project = path
         else:
             print("Project non-existent")
-            return -1
 
     def save_project(self):
         # Saves Project To File
         cp = self.current_project
-        if cp == "":
+        if (cp == ""):
             print("No project opened!")
-            return -1
         else:
             file = open(cp, "w")
             for instruction in self.code:
@@ -72,41 +70,46 @@ class SIMPL_Processor:
         if number > 0 and number <= len(self.code):
             return self.code[number-1]
         else:
-            print("Line does not exist")
-            return -1
+            return ""
 
     def change(self, number, command):
         # Changes Instruction At Line
-        if number > 0 and number <= len(self.code):
-            self.code[number-1] = command
-        else:
-            return -1
+        self.code[number-1] = command
 
     def create_variable(self, name):
-        # Creates An Undefined (None) Variable And Stores It In Symbol H.Table
-        if name in self.symbols:  # ? Variable Override. How Should We Handle?
-            return -1
-        else:
-            self.symbols[name] = None
+        # TODO: insert string into symbols
+        str = ""
+        self.symbols[name] = str
+
+        return
 
     def create_array(self, name):
-        # Creates An Empty Array And Stores It In Symbol H.Table
-        self.symbols[name] = []
+        # TODO: insert array into symbols
+        arr = []
+
+        # create array
+        for name in arr:
+            self.symbols.append(name)
+
+        return
 
     def sort(self, name, arr):
-        # Sorts Array
-        if isinstance(arr, list):
-            arr.sort()  # Use Python Built-In Sort (In-Place)
-            self.symbols[name] = arr
-        else:
-            print("Item is not sortable")
+        # TODO: Sort
+        length = len(arr)
+
+        for i in range(length):
+            for j in range(0, length - i - 1):
+                if arr[j] > arr[j+1]:
+                    arr[j], arr[j+1] = arr[j+1], arr[j]
+
+        self.symbols[name] = arr
+
+        return
 
     def assign_value(self, name, value):
-        # Assigns Value To Symbol
-        if name in self.symbols:  # Variable Override
-            self.symbols[name] = value
-        else:  # Variable Assignment
-            self.symbols[name] = value
+        # TODO: Assign Values
+        self.symbols[name] = value
+        return
 
     def separate(self, name, value):
         # TODO: Separate
@@ -128,13 +131,8 @@ class SIMPL_Processor:
         return
 
     def join(self, name1, name2):
-        # Concatenate Two Variables Together
-        a_exp = self.symbols[name1] if name1 in self.symbols else False
-        b_exp = self.symbols[name2] if name2 in self.symbols else False
-
-        both_valued = a_exp is not False and b_exp is not False
-
-        return f"{a_exp}{b_exp}" if both_valued else -1
+        # TODO: Join
+        return self.symbols[name1] + " " + self.symbols[name2]
 
     def say(self, target, name):
         # TODO: Say
@@ -145,14 +143,62 @@ class SIMPL_Processor:
         if target == 1:
             # To do
             return
+        
+    #Math commands start
+    import math
+    import decimal
+
+    def absolute_value(number):
+        return abs(number)
+
+    def circumference(radius, uom):
+        y = (2*(math.pi)*radius)
+        s = uom
+        return "{} {}".format(y, s)
+
+    def area(radius, uom):
+        y = (math.pi*radius*radius)
+        s = uom
+        return "{} {}".format(y, s)
+
+    def greatest_common_denominator(x, y):
+        return math.gcd(x, y)
+
+    def volume(shape, uom):
+        if shape.lower() == "cube":
+            s = input("What is the side length? ")
+            r = decimal.Decimal(eval(str(decimal.Decimal(s) * decimal.Decimal(s) * decimal.Decimal(s))))
+            return "{} {}".format(r, uom)
+        if shape.lower() == "parallelepiped":
+            s = input("What is the length width and height? ").split(" ")
+            r = decimal.Decimal(eval(str(int(s[0]) * int(s[1]) * int(s[2]))))
+            return "{} {}".format(r, uom)
+        if shape.lower() == "regular prism":
+            s = input("What is the base and height? ").split(" ")
+            r = decimal.Decimal(eval(str(int(s[0]) * int(s[1]))))
+            return "{} {}".format(r, uom)
+        if shape.lower() == "cylinder":
+            s = input("What is the radius and height? ").split(" ")
+            r = decimal.Decimal(eval(str(math.pi * (int(s[0]) * int(s[0])) * int(s[1]))))
+            return "{} {}".format(r, uom)
+        if shape.lower() == "cone" or shape.lower() == "pyramid":
+            s = input("What is the base and height? ").split(" ")
+            r = decimal.Decimal(eval(str((1/3) * int(s[0]) * int(s[1]))))
+            return "{} {}".format(r, uom)
+        if shape.lower() == "sphere":
+            s = input("What is the radius? ")
+            r = decimal.Decimal(eval(str((4/3) * math.pi * (int(s) * int(s) * int(s)))))
+            return "{} {}".format(r, uom)
+        else:
+            print("Shape not included.")
 
 
-# main_processor = SIMPL_Processor()
+main_processor = SIMPL_Processor()
 
-# main_processor.open_project("./projects/ProcessorTest.simpl")
+main_processor.open_project("./projects/ProcessorTest.simpl")
 
-# print(main_processor.code)
-# print(f"Find Line Cmd: {main_processor.line(1)}")
-# main_processor.change(0, "other")
-# main_processor.save_project()
-# print(main_processor.code)
+print(main_processor.code)
+print(f"Find Line Cmd: {main_processor.line(1)}")
+main_processor.change(0, "other")
+main_processor.save_project()
+print(main_processor.code)
