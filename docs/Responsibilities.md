@@ -2,7 +2,7 @@
 
 ### Brandon
 
--
+-   Graphics engine (mobile vs desktop)
 
 ### Daniel M
 
@@ -33,7 +33,6 @@
 ## Unassigned tasks:
 
 -   Detect the platform
--   Graphics engine (mobile vs desktop)
 -   Conditional and flow control commands
 -   Store commands vs. immediate execution of commands.
 -   File read / write
