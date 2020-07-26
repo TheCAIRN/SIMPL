@@ -19,7 +19,15 @@ COMMENT ... END COMMENT
 JOIN <name> TO <name> [AS <name>] # If the third name exists, assign the result to that variable, otherwise assign it to the first.
 
 Math commands:
-** TO DO **
+#Basic Math Commands
+ADD <number> AND <number> # [AND <number>] statement can be repeated
+SUBTRACT <number> BY <number> 
+DIVIDE <number> BY <number>
+MULTIPLY <number> BY <number> 
+SQUARE ROOT OF <number> 
+<number> POWER OF <number> 
+ADD <variable> AND <variable> #for string concetenation
+SUBTRACT <variable> BY <variable>
 
 Output commands:
 SAY [VARIABLE] <name> # Use speech synthesis to dictate the value of the variable
