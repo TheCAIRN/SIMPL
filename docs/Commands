@@ -26,7 +26,7 @@ DIVIDE <number> BY <number>
 MULTIPLY <number> BY <number> 
 SQUARE ROOT OF <number> 
 <number> POWER OF <number> 
-ADD <variable> AND <variable> #for string concetenation
+ADD <variable> AND <variable> #for string concetenation and number variables
 SUBTRACT <variable> BY <variable>
 
 Output commands:
