@@ -9,13 +9,13 @@ import speech_recognition as sr
 import numpy as np
 #------------------------------------------Sample Functions-------------------------------------------------------------
 def addition(obj, parameters):
-    return obj + sum(parameters)
+    BUILT_IN_VARIABLES[obj] += sum(parameters)
 
 def multiplication(obj, parameters):
-    return obj * np.prod(parameters)
+    BUILT_IN_VARIABLES[obj] *= np.prod(parameters)
 
 def set_value(obj, value):
-    return value
+    BUILT_IN_VARIABLES[obj] = value
 #------------------------------------------Definitions------------------------------------------------------------------
 class function:
     def __init__(self, name, keyword, model, parameters, call):
@@ -36,9 +36,8 @@ BUILT_IN_COMMANDS = {"add" : add,
                      "multiply" : multiply,
                      "set" : set_func}
 
-#sample variables until I make a "create variable" command
 x = 1
-y = 1
+y = 5
 BUILT_IN_VARIABLES = {"x" : x,
                       "y" : y}
 
@@ -67,47 +66,49 @@ def parse (input):
     for letter in command.model:
         if(letter == "O"):
             #remove spaces and get the string version of the object
-            val = key_values[index].strip(" ")
-            obj = get_variable(val, param_type[index])
+            obj = key_values[index].strip(" ")
             index += 1
         if(letter == "P"):
             #remove spaces and get the parameters
-            val = key_values[index].strip(" ")
+            pval = key_values[index].strip(" ")
             #only turn into a list if there are enough elements (saves hasle later)
-            if(val.find(" ") > 0):
-                val = val.split(" ")
-            parameters = check_type(val, param_type[index])
+            if(pval.find(" ") > 0):
+                pval = pval.split(" ")
+            parameters = check_type(pval, param_type[index])
             index += 1
     #call the function
-    BUILT_IN_VARIABLES[obj] = command.call(obj, parameters)
+    print(parameters, obj)
+    command.call(obj, parameters)
     print(BUILT_IN_VARIABLES[obj])
 
 #------------------------------------------Helper Function------------------------------------------------------------------
 def check_type(value, pattern):
-    #turn the input string into the specifed type
-    if(pattern == "int"):
-        if(type(value) == "list"):
-            #incompatable, can't be a list
-            print("Error: Expected %s, Recieved %s" % (pattern, type(value)))
-        else:
+    try:
+        #turn the input string into the specifed type
+        if(pattern == "int"):
             #if it's a number string, just convert it
             if(value.isnumeric()):
                 value = int(value)
-            else:
-                #if not, its a variable, get it
-                value = get_variable(value, pattern)                
             
-    if(pattern == "inta"):
-        if(type(value) == type([])):
-            value.remove("and")
-            value = [int(i) for i in value]
-        else:
-            #if it's a number string, just convert it
-            if(value.isnumeric()):
-                value = [int(value)]
+        if(pattern == "inta"):
+            if(type(value) == type([])):
+                value.remove("and")
+                out = []
+                for i in value:
+                    if(i.isnumeric()):
+                        out.append(int(i))
+                    else:
+                        out.append(BUILT_IN_VARIABLES[i])
+                value = out
             else:
-                #if not, its a variable, get it
-                value = [get_variable(value, pattern)]
+                #if it's a number string, just convert it
+                if(value.isnumeric()):
+                    value = [int(value)]
+                else:
+                    #if not, its a variable, get it
+                    value = [BUILT_IN_VARIABLES[value]]
+    except:
+        print("Error: Expected %s, Recieved %s" % (pattern, type(value)))
     return value
 
 def get_variable(name, pattern):
@@ -115,8 +116,25 @@ def get_variable(name, pattern):
     return BUILT_IN_VARIABLES[name.strip(" ")]
     
 #------------------------------------------Audio------------------------------------------------------------------
-#the issue here is that x and y don't keep their values. I can't seem to pass by reference (7/26)
-parse("Set y to 4")
-parse("Multiply x by y")
-parse("Add x to y")
+#parse("Set y to 4")
+#parse("Multiply x by y")
+#parse("Add 1 y 3 4 and x to y")
 
+import speech_recognition as sr
+
+# obtain audio from the microphone
+r = sr.Recognizer()
+with sr.Microphone() as source:
+    print("Say something!")
+    audio = r.listen(source)
+
+# recognize speech using Google Speech Recognition
+try:
+    # for testing purposes, we're just using the default API key
+    # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
+    # instead of `r.recognize_google(audio)`
+    print("Google Speech Recognition thinks you said: " + r.recognize_google(audio))
+except sr.UnknownValueError:
+    print("Google Speech Recognition could not understand audio")
+except sr.RequestError as e:
+    print("Could not request results from Google Speech Recognition service; {0}".format(e))
