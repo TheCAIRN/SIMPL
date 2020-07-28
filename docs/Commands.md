@@ -6,21 +6,21 @@
 
 ## Program navigation commands:
 
--   [ ] READ LINE|LINES **{number}** TO **{number}** | [THE] END
+-   [x] READ LINE|LINES **{number}** TO **{number}** | [THE] END
 -   [ ] STOP READING
 -   [ ] [GO TO THE] **[beginning of | end of]** LINE **{number}**
--   [ ] CHANGE LINE **{number}** TO **{command}**
+-   [x] CHANGE LINE **{number}** TO **{command}**
 
 ## Memory commands:
 
--   [ ] CREATE VARIABLE **{name}**
--   [ ] CREATE ARRAY **{name}** [INCLUDES **{values}**]
--   [ ] SORT **{name}** NUMERICALLY|ALPHABETICALLY
--   [ ] SET **{name}** [EQUAL] TO **{value}**
--   [ ] SEPARATE **{name}** BY **{value}**
+-   [x] CREATE VARIABLE **{name}**
+-   [x] CREATE ARRAY **{name}** [INCLUDES **{values}**]
+-   [x] SORT **{name}** NUMERICALLY|ALPHABETICALLY
+-   [x] SET **{name}** [EQUAL] TO **{value}**
+-   [x] SEPARATE **{name}** BY **{value}**
     -   Takes a string and creates an array of strings, split by **{value}**.
--   [ ] COMMENT ... END COMMENT
--   [ ] JOIN **{name}** TO **{name}** [AS **{name}**]
+-   [x] COMMENT ... END COMMENT
+-   [x] JOIN **{name}** TO **{name}** [AS **{name}**]
     -   If the third name exists, assign the result to that variable, otherwise assign it to the first.
 
 ## Math commands:
@@ -40,9 +40,9 @@
 
 ## Output commands:
 
--   [ ] SAY [VARIABLE] **{number}**
+-   [x] SAY [VARIABLE] **{number}**
     -   Use speech synthesis to dictate the value of the variable
--   [ ] PRINT [VARIABLE] **{number}**
+-   [x] PRINT [VARIABLE] **{number}**
     -   Display the contents of the variable on the console
 
 ## Input commands:

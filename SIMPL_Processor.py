@@ -24,7 +24,9 @@ import decimal
 class SIMPL_Processor:
     def __init__(self):
         # self.parser = p()
-        self.symbols = {}
+        self.symbols = {
+            "comments": {}  # Stores Comments
+        }
         self.code = []
         self.current_project = ""
         self.current_line = 0
@@ -111,27 +113,25 @@ class SIMPL_Processor:
         else:  # Variable Assignment
             self.symbols[name] = value
 
-    def separate(self, name, value):
-        # TODO: Separate
-        str = ""
-        for value in str:
-            str.split(value)
+    def separate(self, name, char):
+        # Separates Existing String Variable By Character
+        if name in self.symbols:  # Check If Variable Exists
+            split_var = self.symbols[name].split(char)  # Split Char
+            return split_var
+        else:
+            print("Variable does not exist")
+            return -1
 
-        self.symbols[name] = str
-
-        return
-
-    def comment(self, comment):
-        # TODO: insert comment into symbols
-        # comment = ""
-
-        # create comment
-        # self.symbols[name] = "#" + comment
-
-        return
+    def comment(self, comment, line):
+        # Writes Comment To Symbols - Might Change Imp
+        if isinstance(comment, str):
+            self.symbols["comments"][line] = comment
+        else:
+            print("Comment must be a string")
+            return -1
 
     def join(self, name1, name2):
-        # Concatenate Two Variables Together
+        # Concatenate Two Existing Variables Together
         a_exp = self.symbols[name1] if name1 in self.symbols else False
         b_exp = self.symbols[name2] if name2 in self.symbols else False
 
@@ -140,14 +140,11 @@ class SIMPL_Processor:
         return f"{a_exp}{b_exp}" if both_valued else -1
 
     def say(self, target, name):
-        # TODO: Say
-        # If target = 0, print to console
-        # If target = 1, call the text-to-speech engine
+        # Say The Variable
         if target == 0:
             print(self.symbols[name])
         if target == 1:
-            # To do
-            return
+            return self.symbols[name]  # Say This Variable
 
     # Math commands for the processor
 
@@ -230,9 +227,17 @@ class SIMPL_Processor:
     #         print("Shape not included.")
 
 
+# * Miguel Tests
 # main_processor = SIMPL_Processor()  # Creating Instance Of Processor
 
 # main_processor.open_project("./projects/ProcessorTest.simpl")
+
+# main_processor.comment("This is a comment", 5)
+# main_processor.assign_value("Programmer", "Miguel Tapia")
+# main_processor.comment("Something else", 2)
+
+
+# print(main_processor.symbols)
 
 # print(main_processor.code)
 # print(f"Find Line Cmd: {main_processor.line(1)}")
@@ -241,3 +246,5 @@ class SIMPL_Processor:
 # print(main_processor.code)
 
 # print(main_processor.add(100, 20))
+
+# * Ken Tests
