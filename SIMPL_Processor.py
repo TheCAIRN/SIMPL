@@ -146,6 +146,85 @@ class SIMPL_Processor:
             # To do
             return
 
+    #Math commands for the processor
+
+    import math
+    import decimal
+
+    # TODO: greater than, less than, equal to, comparisons.
+
+    def add(x, y):
+        # Returns the sum of x and y. Could be (int, int) or (string, string).
+        return (x + y)
+
+    def subtract(x, y):
+        # Subtracts numbers (int, int)
+        return (x - y)
+
+    def divide(x, y):
+        # Returns the division of x by y. (int, int)
+        return (x / y)
+
+    def multiply(x, y):
+        # Returns the multiplication of x by y. (int, int)
+        return (x * y)
+
+    def square_root(x):
+        # Returns the square root of a number. (int)
+        return math.sqrt(x)
+
+    def power(x, y):
+        # Returns x to the power of y. (int, int)
+        return (math.pow(x, y))
+
+    def absolute_value(number):
+        # Returns distance from zero (int)
+        return abs(number)
+
+    def circumference(radius, uom):
+        # Returns circumference of a circle (int, string)
+        y = (2 * (math.pi) * radius)
+        s = uom
+        return "{} {}".format(y, s)
+
+    def area(radius, uom):
+        # Returns area of a circle (int, string)
+        y = (math.pi * radius * radius)
+        s = uom
+        return "{} {}".format(y, s)
+
+    def greatest_common_denominator(x, y):
+        # Returns the greatest common divisor (int, int)
+        return math.gcd(x, y)
+
+    def volume(shape, uom):
+        # Returns the volume of a shape (string, string) input from user = (int), number of variables differ based on shape.
+        if shape.lower() == "cube":
+            s = input("What is the side length? ")
+            r = decimal.Decimal(eval(str(decimal.Decimal(s) * decimal.Decimal(s) * decimal.Decimal(s))))
+            return "{} {}".format(r, uom)
+        if shape.lower() == "parallelepiped":
+            s = input("What is the length width and height? ").split(" ")
+            r = decimal.Decimal(eval(str(int(s[0]) * int(s[1]) * int(s[2]))))
+            return "{} {}".format(r, uom)
+        if shape.lower() == "regular prism":
+            s = input("What is the base and height? ").split(" ")
+            r = decimal.Decimal(eval(str(int(s[0]) * int(s[1]))))
+            return "{} {}".format(r, uom)
+        if shape.lower() == "cylinder":
+            s = input("What is the radius and height? ").split(" ")
+            r = decimal.Decimal(eval(str(math.pi * (int(s[0]) * int(s[0])) * int(s[1]))))
+            return "{} {}".format(r, uom)
+        if shape.lower() == "cone" or shape.lower() == "pyramid":
+            s = input("What is the base and height? ").split(" ")
+            r = decimal.Decimal(eval(str((1 / 3) * int(s[0]) * int(s[1]))))
+            return "{} {}".format(r, uom)
+        if shape.lower() == "sphere":
+            s = input("What is the radius? ")
+            r = decimal.Decimal(eval(str((4 / 3) * math.pi * (int(s) * int(s) * int(s)))))
+            return "{} {}".format(r, uom)
+        else:
+            print("Shape not included.")
 
 # main_processor = SIMPL_Processor()
 
