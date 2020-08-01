@@ -152,33 +152,32 @@ class SIMPL_Processor:
 
     def add(self, list):
         # Returns the sum of all numbers in the list. (list)
-        n = list
-        sum
-        for i in n:
+        if list[0].isdigit():
+            sum = 0
+        else:
+            sum = ""
+        for i in list:
             sum = sum + i
         return sum
 
     def subtract(self, list):
         # Subtracts numbers in the list. (list)
-        n = list
-        dif
-        for i in n:
+        dif = list.pop(0)
+        for i in list:
             dif = dif - i
         return dif
 
     def divide(self, list):
         # Returns the division of x by y. (list)
-        n = list
-        quo
-        for i in n:
-            quo = quo / i
+        quo = list.pop(0)
+        for i in list:
+            quo = quo - i
         return quo
 
     def multiply(self, list):
         # Returns the multiplication of the list. (list)
-        n = list
-        prod
-        for i in n:
+        prod = list.pop(0)
+        for i in list:
             prod = prod * i
         return prod
 
@@ -206,9 +205,9 @@ class SIMPL_Processor:
         s = uom
         return "{} {}".format(y, s)
 
-    def greatest_common_denominator(self, list):
+    def greatest_common_denominator(self, x, y):
         # Returns the greatest common divisor of all numbers in the list (list)
-        return math.gcd(list)
+        return math.gcd(x, y)
 
     def volume(self, shape, uom):
         # Returns the volume of a shape (string, string) input from user = (int), number of variables differ based on shape.
@@ -261,14 +260,11 @@ class SIMPL_Processor:
 
     def equal_to(self, list):
         # Determines if the values in the list are equal to one another (list)
-        old_num = list[0]
+        old_num = list.pop(0)
         counter = 0
         for i in list:
-            num = i
-            if num != old_num:
+            if i != old_num:
                 counter = counter + 1
-            else:
-                continue
         if counter > 0:
             return false
         else:
