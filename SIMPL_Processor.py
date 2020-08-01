@@ -151,7 +151,7 @@ class SIMPL_Processor:
     # TODO:
 
     def add(self, list):
-        # Returns the sum of all numbers in the list. (list)
+        # Returns the sum/concatenation of all numbers or strings in the list. (list)
         if list[0].isdigit():
             sum = 0
         else:
@@ -171,7 +171,7 @@ class SIMPL_Processor:
         # Returns the division of x by y. (list)
         quo = list.pop(0)
         for i in list:
-            quo = quo - i
+            quo = quo / i
         return quo
 
     def multiply(self, list):
@@ -206,7 +206,7 @@ class SIMPL_Processor:
         return "{} {}".format(y, s)
 
     def greatest_common_denominator(self, x, y):
-        # Returns the greatest common divisor of all numbers in the list (list)
+        # Returns the greatest common divisor of two integers (int, int)
         return math.gcd(x, y)
 
     def volume(self, shape, uom):
