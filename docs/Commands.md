@@ -27,16 +27,16 @@
 
 ### Basic Math Commands
 
--   [ ] ADD **{number}** AND **{number}**
-    -   [AND **{number}**] statement can be repeated
--   [ ] SUBTRACT **{number}** BY **{number}**
--   [ ] DIVIDE **{number}** BY **{number}**
--   [ ] MULTIPLY **{number}** BY **{number}**
--   [ ] SQUARE ROOT OF **{number}**
--   [ ] **{number}** POWER OF **{number}**
--   [ ] ADD **{variable}** AND **{variable}**
+-   [x] ADD **{number}** AND **{number}**
+-   [x] [AND **{number}**] statement can be repeated
+-   [x] SUBTRACT **{number}** BY **{number}**
+-   [x] DIVIDE **{number}** BY **{number}**
+-   [x] MULTIPLY **{number}** BY **{number}**
+-   [x] SQUARE ROOT OF **{number}**
+-   [x] **{number}** POWER OF **{number}**
+-   [x] ADD **{variable}** AND **{variable}**
     -   For string concetenation and number variables
--   [ ] SUBTRACT **{variable}** BY **{variable}**
+-   [x] SUBTRACT **{variable}** BY **{variable}**
 
 ## Output commands:
 
