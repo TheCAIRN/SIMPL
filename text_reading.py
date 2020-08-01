@@ -22,6 +22,12 @@ def speaking(text): #class speaking which takes in the data type of text
     text_speech.save(filename)
     playsound.playsound(filename) #plays the mp3 file created in the filename variable
 
+def intro_speaking(text): #class speaking which takes in the data type of text
+    text2_speech2 = gTTS(text=text, lang = "en") #sets the parameters for what text and language
+    filename_default2 = "intro_startvoice.mp3" # saves the text file of the mp3
+    text2_speech2.save(filename_default2)
+    playsound.playsound(filename_default2) #plays the mp3 file created in the filename variable
+
 def start_speaking(text): #class speaking which takes in the data type of text
     text2_speech = gTTS(text=text, lang = "en") #sets the parameters for what text and language
     filename_default = "startvoice.mp3" # saves the text file of the mp3
@@ -43,8 +49,9 @@ def audio_input():
    return speech
 
 #speaking("Please begin speaking.") #submits the text into the mp3 file and prompts user to speak
-
+intro_speaking("Hello and welcome to SIMPL or simple, a programming language based off voice developed by Cairn university.")
 start_speaking("Please Begin Speaking")
+
 
 text = audio_input() #begins to take the input by refrencing the audio input class
 
