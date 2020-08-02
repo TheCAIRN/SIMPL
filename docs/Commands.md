@@ -37,7 +37,13 @@
 -   [x] ADD **{variable}** AND **{variable}**
     -   For string concetenation and number variables
 -   [x] SUBTRACT **{variable}** BY **{variable}**
-
+-   [ ]Mean - MEAN OF **{variable}**
+-   [ ]Median - MEDIAN OF **{variable}**
+-   [ ]Mode - MODE OF **{variable}** 
+-   [ ]Standard Deviation - STANDARD DEVIATION OF **{variable}**
+-   [ ]Graph Plot - PLOT {variable}** AND **{variable}**
+-   [ ]Correlation - CORRELATION OF **{variable}**
+ 
 ## Output commands:
 
 -   [x] SAY [VARIABLE] **{number}**
