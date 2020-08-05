@@ -18,10 +18,24 @@ import os.path
 import math
 import decimal
 
-# import SIMPL_Parser as p
+# ADDRESS PRINTS
+# ADD TO README
 
 
+# ***** Exceptions ***** #
+class ProjectError(Exception):
+    """Raises Exception For Project Level Errors"""
+
+
+class ExecutionError(Exception):
+    """Raises Exception For Execution Level Errors"""
+
+
+# ***** Driver Processor ***** #
 class SIMPL_Processor:
+    # import SIMPL_Parser as p
+    # parser = p.Parser()
+
     def __init__(self):
         # self.parser = p()
         self.symbols = {
@@ -39,8 +53,7 @@ class SIMPL_Processor:
         if not ext:
             ext = ".simpl"
         elif ext != ".simpl":
-            print("Invalid project type")
-            return -1  # ? Should we have a convention for "invalid" operations
+            raise ProjectError("Invalid Project Type")
 
         path = root + ext  # Compose Path
 
@@ -51,15 +64,13 @@ class SIMPL_Processor:
                     self.code.append(line.rstrip())
             self.current_project = path
         else:
-            print("Project non-existent")
-            return -1
+            raise ProjectError("Project Non Existent")
 
     def save_project(self):
         # Saves Project To File
         cp = self.current_project
         if cp == "":
-            print("No project opened!")
-            return -1
+            raise ProjectError("No Project Opened!")
         else:
             file = open(cp, "w")
             for instruction in self.code:
@@ -69,28 +80,28 @@ class SIMPL_Processor:
 
     def run_project(self):
         # Goes Over Lines, Parser Sends Each Command Here
-        for line in self.code:
-            self.parser.parse(line)
+        # for line in self.code:
+        #     self.parser.parse(line)
+        return self.code  # Return Bulk Code Array
 
     def line(self, number):
         # Gives Line Requested By Parser Or Nothing If Non-Existent
         if number > 0 and number <= len(self.code):
             return self.code[number-1]
         else:
-            print("Line does not exist")
-            return -1
+            raise ExecutionError("Line does not exist")
 
     def change(self, number, command):
         # Changes Instruction At Line
         if number > 0 and number <= len(self.code):
             self.code[number-1] = command
         else:
-            return -1
+            raise ExecutionError("Line does not exist")
 
     def create_variable(self, name):
         # Creates An Undefined (None) Variable And Stores It In Symbol H.Table
         if name in self.symbols:  # ? Variable Override. How Should We Handle?
-            return -1
+            raise ExecutionError("Variable Already Exists")
         else:
             self.symbols[name] = None
 
@@ -104,7 +115,7 @@ class SIMPL_Processor:
             arr.sort()  # Use Python Built-In Sort (In-Place)
             self.symbols[name] = arr
         else:
-            print("Item is not sortable")
+            raise ExecutionError("Item is not sortable!")
 
     def assign_value(self, name, value):
         # Assigns Value To Symbol (name = string; value = any)
@@ -119,16 +130,21 @@ class SIMPL_Processor:
             split_var = self.symbols[name].split(char)  # Split Char
             return split_var
         else:
-            print("Variable does not exist")
-            return -1
+            raise ExecutionError("Variable does not exist!")
 
     def comment(self, comment, line):
         # Writes Comment To Symbols - Might Change Imp
-        if isinstance(comment, str):
-            self.symbols["comments"][line] = comment
+        if not len(self.code)-1 < line:
+            # Comment Must Be Associated With Existing Line
+            raise ExecutionError("Cannot add comment to non-existing line")
+
+        if line in self.symbols["comments"]:
+            # Line Already Has A Comment So Add To It
+            current_comment = self.symbols["comments"][line]
+            self.symbols["comments"][line] = current_comment + comment
         else:
-            print("Comment must be a string")
-            return -1
+            # Add an entirely new comment
+            self.symbols["comments"][line] = comment
 
     def join(self, name1, name2):
         # Concatenate Two Existing Variables Together
@@ -137,7 +153,10 @@ class SIMPL_Processor:
 
         both_valued = a_exp is not False and b_exp is not False
 
-        return f"{a_exp}{b_exp}" if both_valued else -1
+        if both_valued:
+            return f"{a_exp}{b_exp}"
+        else:
+            raise ExecutionError("Variables to join must have value / exist")
 
     def say(self, target, name):
         # Say The Variable
@@ -249,6 +268,7 @@ class SIMPL_Processor:
             return y
         else:
             return "They are equal."
+
     def less_than(self, x, y):
         # Returns which value is least (int, int)
         if x < y:
@@ -266,19 +286,15 @@ class SIMPL_Processor:
             if i != old_num:
                 counter = counter + 1
         if counter > 0:
-            return false
+            return False
         else:
-            return true
-
-
-
-
+            return True
 
 
 # * Miguel Tests
 # main_processor = SIMPL_Processor()  # Creating Instance Of Processor
 
-# main_processor.open_project("./projects/ProcessorTest.simpl")
+# main_processor.open_project("./projects/hi.txt")
 
 # main_processor.comment("This is a comment", 5)
 # main_processor.assign_value("Programmer", "Miguel Tapia")
