@@ -17,6 +17,7 @@ how-to-read-a-file-line-by-line-into-a-list
 import os.path
 import math
 import decimal
+from collections import Counter
 
 # ADDRESS PRINTS
 # ADD TO README
@@ -167,7 +168,7 @@ class SIMPL_Processor:
 
     # Math commands for the processor
 
-    # TODO:
+    # TODO: Standard Deviation, Graph Plot, Correlation
 
     def add(self, list):
         # Returns the sum/concatenation of all numbers or strings in the list. (list)
@@ -289,6 +290,36 @@ class SIMPL_Processor:
             return False
         else:
             return True
+        
+    def mean(self, list):
+        # Returns the mean of a list of numbers/variables (list)
+        sum = 0
+        counter = 0
+        for i in list:
+            sum = sum + i
+            counter = counter + 1
+        return (sum / counter)
+
+    def median(list):
+        # Returns the median from a list of numbers (list)
+        list.sort()
+        counter = 0
+        for i in list:
+            counter = counter + 1
+        med = int((counter - 1) / 2)
+        return list[med]
+
+    def mode(self, list):
+        #Returns the mode and the number of times it is repeated (key, value) from a list of numbers (list)
+        c = Counter(list)
+        old_v = 0
+        old_k = 0
+        for k, v in c.items():
+            if v > old_v:
+                old_v = v
+                old_k = k
+        return (old_k, old_v)
+
 
 
 # * Miguel Tests
@@ -312,3 +343,6 @@ class SIMPL_Processor:
 # print(main_processor.add(100, 20))
 
 # * Ken Tests
+#main_processor = SIMPL_Processor()  # Creating Instance Of Processor
+
+#print(main_processor.mode([1,1,2,2,3])
