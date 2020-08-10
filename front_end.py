@@ -12,35 +12,40 @@ def onclick():
 window = Tk()
 
 #creating labels
-l1 = Label(window, text = "SIMPL Project Name: ")
-l1.grid(row = 0, column = 0)
+label1 = Label(window, text = "SIMPL Project Name: ")
+label1.grid(row = 0, column = 0)
 
-l2 = Label(window, text = "Project Name:")
-l1.grid(row = 0, column = 1)
+label2 = Label(window, text = "Project Name:")
+label1.grid(row = 0, column = 1)
 
 #entriies text input
 label_text = StringVar()
 el = Entry(window,textvariable=label_text)
 el.grid(row=0,column = 2)
 
+#text box 
+# text1 = text1.grid(window, height = 10 , width = 50)
+
+
 #creating a list box
 
-list1 = Listbox(window, height = 20, width = 70)
-list1.grid(row = 2, column = 1, rowspan = 6 ,columnspan = 2)
+# list1 = Listbox(window, height = 20, width = 70)
+# list1.grid(row = 2, column = 1, rowspan = 6 ,columnspan = 2)
+# text = Text(window)
+# text.insert(INSERT, text)
+# text.config(state = "disabled")
+# text.grid(row = 7, column = 1)
 
 #creating a scroll with list box
 
-sbl = Scrollbar(window)
-sbl.grid(row=2,column=3,rowspan = 1)
+# sbl = Scrollbar(window)
+# sbl.grid(row=2,column=3,rowspan = 1)
 
-list1.configure(yscrollcommand = sbl.set)
-sbl.configure(command=list1.yview)
+# list1.configure(yscrollcommand = sbl.set)
+# sbl.configure(command=list1.yview)
 
 #butttons
 b1 = Button(window, text = "Begin", width = 12, command = onclick)
 b1.grid(row = 0, column = 3)
-
-
-
 
 window.mainloop()

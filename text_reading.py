@@ -15,6 +15,8 @@ import playsound
 import speech_recognition as speech_recognition
 from gtts import gTTS
 
+from tkinter import *
+
 #creating a speech class
 def speaking(text): #class speaking which takes in the data type of text
     text_speech = gTTS(text=text, lang = "en") #sets the parameters for what text and language
@@ -44,6 +46,16 @@ def audio_input():
         try: #try and except is somewhat similar to if and else. Try means you try the code and if there are errors then it goes to except
             speech = rec.recognize_google(audio)
             print(speech)
+            
+            #this opens up a new window with tkinter and prints the words on the screen from the voice input
+            window = Tk()
+
+            text = Text(window)
+            text.insert(INSERT, speech)
+            text.config(state = "disabled")
+            text.grid(row = 7, column = 1)
+
+            window.mainloop()
         except Exception as e:
             print("Exception " + str(e))
    return speech
