@@ -43,6 +43,15 @@
 -   [ ]Standard Deviation - STANDARD DEVIATION OF **{variable}**
 -   [ ]Graph Plot - PLOT {variable}** AND **{variable}**
 -   [ ]Correlation - CORRELATION OF **{variable}**
+
+## Graphics Commands
+
+-	[ ]DRAW **{shape}** HEIGHT **{value}** WIDTH **{value}** COLOR **{color}**
+	-	possibly add more commands for thickness and color diversity
+-	[ ]IMAGE ADD **{variable name}**
+	-	a file selector/url paster will pop up
+-	[ ]IMAGE DELETE **{variable name}**
+	-	hovering over an image will show its variable name if you forget it
  
 ## Output commands:
 
