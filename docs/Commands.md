@@ -37,6 +37,10 @@
 -   [x] ADD **{variable}** AND **{variable}**
     -   For string concetenation and number variables
 -   [x] SUBTRACT **{variable}** BY **{variable}**
+-   [ ] Absolute value - ABSOLUTE VALUE OF **{variable}**
+-   [ ] Minimum/Maximum value (in a list) - MINIMUM VALUE OF **{variable}** / MAXIMUM VALUE OF **{variable}** 
+-   [ ] Random Integer - SET **{variable}** TO RANDOM VALUE
+-   [ ] Exponent - SET **{variable}** TO THE POWER OF **{variable}**
 -   [x]Mean - MEAN OF **{variable}**
 -   [x]Median - MEDIAN OF **{variable}**
 -   [x]Mode - MODE OF **{variable}** 
