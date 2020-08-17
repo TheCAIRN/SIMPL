@@ -320,6 +320,29 @@ class SIMPL_Processor:
                 old_k = k
         return (old_k, old_v)
 
+    # def draw_square(self, location, size, color):
+    #
+    #     self.master.title("Lines")
+    #     self.pack(fill=BOTH, expand=1)
+    #
+    #     canvas = Canvas(self)  # remove once canvas is defined somewhere else
+    #     canvas.create_rectangle(location['x'], location['y'], location['x'] + size['width'],
+    #                             location['y'] + size['height'],
+    #                             outline=color, fill=color)
+    #
+    #     canvas.pack(fill=BOTH, expand=1)
+
+    # def draw_oval(self,location,size,color):
+    #
+    #     self.master.title("Lines")
+    #     self.pack(fill=BOTH, expand=1)
+    #
+    #     canvas = Canvas(self) #remove once canvas is defined somewhere else
+    #     canvas.create_oval(location['x'], location['y'], location['x']+size['width'], location['y']+size['height'],
+    #                             outline=color, fill=color)
+    #
+    #     canvas.pack(fill=BOTH, expand=1)
+
 
 
 # * Miguel Tests

@@ -50,7 +50,8 @@
 
 ## Graphics Commands
 
--	[ ]DRAW **{shape}** HEIGHT **{value}** WIDTH **{value}** COLOR **{color}**
+-	[ ]DRAW **{size}** **{color}** **{shape}** AT | IN **{location}**
+	-	EX phrase: draw a large blue circle in middle
 	-	possibly add more commands for thickness and color diversity
 -	[ ]IMAGE ADD **{variable name}**
 	-	a file selector/url paster will pop up
