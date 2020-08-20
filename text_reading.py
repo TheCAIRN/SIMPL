@@ -69,8 +69,10 @@ text = audio_input() #begins to take the input by refrencing the audio input cla
 
 
 #Tim included this if statement where it takes the text said and if the text is in the string then it responds by speaking.
-if "hello" in text:
-    speaking("hi dan")
+if "set" in text:
+    import SIMPL_Parser
+    
+    # speaking("hi dan")
 else:
     speaking("Please try again")
     audio_input()
