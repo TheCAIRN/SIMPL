@@ -252,53 +252,38 @@ class SIMPL_Processor:
     ###                      GEOMETRIC FUNCTIONS                      ###
     #####################################################################
     
-    def circumference(self, radius, uom):
+    def circumference(self, args):
         # Returns circumference of a circle (int, string)
-        y = (2 * (math.pi) * radius)
-        s = uom
-        return "{} {}".format(y, s)
+        self.symbols[args['obj']] = (2 * math.pi * args['param'][0])
 
-    def area(self, radius, uom):
-        # Returns area of a circle (int, string)
-        y = (math.pi * radius * radius)
-        s = uom
-        return "{} {}".format(y, s)
+    def area(self, args):
+        # Returns area of a shape
+        shape = args['param'][0]
+        array = args['param'][1]
+        shape_switch = {"rectangle": lambda arr: arr[0] * arr[1],
+                        "circle": lambda arr: math.pi * math.pow(arr[0], 2),
+                        "triangle": lambda arr: (arr[0] * arr[1]) / 2,
+                        "regular pentagon": lambda arr: (math.sqrt((5*(5+(2*math.sqrt(5)))*arr[0]))) / 4,
+                        "rhombus": lambda arr: (arr[0] * arr[1]) / 2}
+        self.symbols[args['obj']] = shape_switch[shape](array)
 
-    def greatest_common_denominator(self, x, y):
+    def greatest_common_denominator(self, args):
         # Returns the greatest common divisor of two integers (int, int)
-        return math.gcd(x, y)
+        nlist = args['param'][0]
+        self.symbols[args['obj']] = math.gcd(nlist)
 
-    def volume(self, shape, uom):
+    def volume(self, args):
         # Returns the volume of a shape (string, string) input from user = (int), number of variables differ based on shape.
-        if shape.lower() == "cube":
-            s = input("What is the side length? ")
-            r = decimal.Decimal(
-                eval(str(decimal.Decimal(s) * decimal.Decimal(s) * decimal.Decimal(s))))
-            return "{} {}".format(r, uom)
-        if shape.lower() == "parallelepiped":
-            s = input("What is the length width and height? ").split(" ")
-            r = decimal.Decimal(eval(str(int(s[0]) * int(s[1]) * int(s[2]))))
-            return "{} {}".format(r, uom)
-        if shape.lower() == "regular prism":
-            s = input("What is the base and height? ").split(" ")
-            r = decimal.Decimal(eval(str(int(s[0]) * int(s[1]))))
-            return "{} {}".format(r, uom)
-        if shape.lower() == "cylinder":
-            s = input("What is the radius and height? ").split(" ")
-            r = decimal.Decimal(
-                eval(str(math.pi * (int(s[0]) * int(s[0])) * int(s[1]))))
-            return "{} {}".format(r, uom)
-        if shape.lower() == "cone" or shape.lower() == "pyramid":
-            s = input("What is the base and height? ").split(" ")
-            r = decimal.Decimal(eval(str((1 / 3) * int(s[0]) * int(s[1]))))
-            return "{} {}".format(r, uom)
-        if shape.lower() == "sphere":
-            s = input("What is the radius? ")
-            r = decimal.Decimal(
-                eval(str((4 / 3) * math.pi * (int(s) * int(s) * int(s)))))
-            return "{} {}".format(r, uom)
-        else:
-            print("Shape not included.")
+        shape = args['param'][0]
+        array = args['param'][1]
+        shape_switch = {"cube": lambda arr: math.pow(arr[0], 3),
+                        "parallelepiped": lambda arr: arr[0] * arr[1] * arr[2],
+                        "regular prism": lambda arr: arr[0] * arr[1],
+                        "cylinder": lambda arr: math.pi * math.pow(arr[0], 2) * arr[1],
+                        "cone": lambda arr: (arr[0] * arr[1]) / 3,
+                        "pyramid": lambda arr: (arr[0] * arr[1]) / 3,
+                        "sphere": lambda arr: (4 / 3) * math.pi * math.pow(arr[0], 3)}
+        self.symbols[args['obj']] = shape_switch[shape](array)
     
     #####################################################################
     ###                     COMPARATOR FUNCTIONS                      ###
