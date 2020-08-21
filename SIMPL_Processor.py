@@ -1,15 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 17 14:49:11 2020
-
-@author: Daniel
-"""
-
-
 """
 Info:
 - Started Wed Mar 27 08:47:24 2019 - Ongoing
-- @authors: msabal, tc595, mtapia, kmiller
+- @authors: msabal, tc595, mtapia, kmiller, dmarzari
 Notes:
 - created create_array function
 - created comment function
