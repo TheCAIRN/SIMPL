@@ -1,14 +1,20 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Aug 17 14:49:11 2020
+
+@author: Daniel
+"""
+
+
 """
 Info:
 - Started Wed Mar 27 08:47:24 2019 - Ongoing
 - @authors: msabal, tc595, mtapia, kmiller
-
 Notes:
 - created create_array function
 - created comment function
 - created sort function
 - created separate function
-
 Sources:
 - https://stackoverflow.com/questions/3277503/
 how-to-read-a-file-line-by-line-into-a-list
@@ -17,11 +23,18 @@ how-to-read-a-file-line-by-line-into-a-list
 import os.path
 import math
 import decimal
+import numpy as np
+from matplotlib import pyplot as plt
 from collections import Counter
+from DataType import DataTypes as dtype
+
+TYPE = dtype()
+
 
 # ADDRESS PRINTS
 # ADD TO README
 
+#instance of datatpye class for any casting and data type logic
 
 # ***** Exceptions ***** #
 class ProjectError(Exception):
@@ -40,12 +53,37 @@ class SIMPL_Processor:
     def __init__(self):
         # self.parser = p()
         self.symbols = {
-            "comments": {}  # Stores Comments
+            "comments": {},  # Stores Comments
         }
         self.code = []
         self.current_project = ""
         self.current_line = 0
 
+    #####################################################################
+    ###                       VARIABLE FUNCTIONS                      ###
+    #####################################################################
+    
+    def create_variable(self, args):
+        if args['obj'] in self.symbols: #reject override
+            raise ExecutionError("Variable %s Already Exists" % args['obj'])
+        else:
+            #make a new variable with standard init value for the data type
+            type = args['param'][0]
+            #we need to clone the list defaults
+            if("array" in type):
+                self.symbols[args['obj']] = TYPE.init_switch[type][:]
+            else:
+                self.symbols[args['obj']] = TYPE.init_switch[type]
+    
+    def assign_value(self, args): #str, any of current var type
+        # Assigns Value To Symbol (name = string; value = any)
+        val = args['param'][0]
+        self.symbols[args['obj']] = val
+            
+    #####################################################################
+    ###                          IDE FUNCTIONS                        ###
+    #####################################################################
+        
     def open_project(self, name):
         # Opens Project & Stores Info
         root, ext = os.path.splitext(name)
@@ -99,40 +137,6 @@ class SIMPL_Processor:
         else:
             raise ExecutionError("Line does not exist")
 
-    def create_variable(self, name):
-        # Creates An Undefined (None) Variable And Stores It In Symbol H.Table
-        if name in self.symbols:  # ? Variable Override. How Should We Handle?
-            raise ExecutionError("Variable Already Exists")
-        else:
-            self.symbols[name] = None
-
-    def create_array(self, name):
-        # Creates An Empty Array And Stores It In Symbol H.Table
-        self.symbols[name] = []
-
-    def sort(self, name, arr):
-        # Sorts Array
-        if isinstance(arr, list):
-            arr.sort()  # Use Python Built-In Sort (In-Place)
-            self.symbols[name] = arr
-        else:
-            raise ExecutionError("Item is not sortable!")
-
-    def assign_value(self, name, value):
-        # Assigns Value To Symbol (name = string; value = any)
-        if name in self.symbols:  # Variable Override
-            self.symbols[name] = value
-        else:  # Variable Assignment
-            self.symbols[name] = value
-
-    def separate(self, name, char):
-        # Separates Existing String Variable By Character
-        if name in self.symbols:  # Check If Variable Exists
-            split_var = self.symbols[name].split(char)  # Split Char
-            return split_var
-        else:
-            raise ExecutionError("Variable does not exist!")
-
     def comment(self, comment, line):
         # Writes Comment To Symbols - Might Change Imp
         if not len(self.code)-1 < line:
@@ -147,72 +151,115 @@ class SIMPL_Processor:
             # Add an entirely new comment
             self.symbols["comments"][line] = comment
 
-    def join(self, name1, name2):
-        # Concatenate Two Existing Variables Together
-        a_exp = self.symbols[name1] if name1 in self.symbols else False
-        b_exp = self.symbols[name2] if name2 in self.symbols else False
-
-        both_valued = a_exp is not False and b_exp is not False
-
-        if both_valued:
-            return f"{a_exp}{b_exp}"
-        else:
-            raise ExecutionError("Variables to join must have value / exist")
-
-    def say(self, target, name):
+    #####################################################################
+    ###                        OUTPUT FUNCTIONS                       ###
+    #####################################################################
+    
+    def say(self, args):
         # Say The Variable
-        if target == 0:
-            print(self.symbols[name])
-        if target == 1:
-            return self.symbols[name]  # Say This Variable
-
-    # Math commands for the processor
-
-    # TODO: Standard Deviation, Graph Plot, Correlation
-
-    def add(self, list):
-        # Returns the sum/concatenation of all numbers or strings in the list. (list)
-        if list[0].isdigit():
-            sum = 0
+        if self.MODE == "SILENT":
+            self.console(args)
         else:
-            sum = ""
-        for i in list:
-            sum = sum + i
-        return sum
+            #TODO: Access speach engine, say variable 
+            var = args['param'][0]
+            print("The value of %s is %s" % (var, self.symbols[var]))  # Say This Variable
 
-    def subtract(self, list):
-        # Subtracts numbers in the list. (list)
-        dif = list.pop(0)
-        for i in list:
-            dif = dif - i
-        return dif
+    def console(self, args):
+        var = args['obj']
+        print("%s = %s" % (var, self.symbols[var]))
+        #print(self.symbols)
+        
+    def plot(self, args):
+        #plot a series of x coordinates and y coordinates
+        #for whatever reason this doens't print to the console right
+        xlist = args['param'][0]
+        ylist = args['param'][1]
+        plt.plot(xlist, ylist)
+        plt.show()
+        
+    #####################################################################
+    ###                         MATH FUNCTIONS                        ###
+    #####################################################################
+    
+    def add(self, args): 
+        #add [1,2,3] to x
+        nlist = args['param'][0]
+        self.symbols[args['obj']] += sum(nlist)
 
-    def divide(self, list):
-        # Returns the division of x by y. (list)
-        quo = list.pop(0)
-        for i in list:
-            quo = quo / i
-        return quo
+    def multiply(self, args):
+        #multiply x by [1,2,3]
+        nlist = args['param'][0]
+        self.symbols[args['obj']] *= int(np.prod(nlist))
+        
+    def subtract(self, args):
+        #subtract [1,2,3] from x
+        nlist = args['param'][0]
+        self.symbols[args['obj']] -= sum(nlist)
+    
+    def divide(self, args): 
+        #divide x by [1,2,3] 
+        nlist = args['param'][0]
+        self.symbols[args['obj']] /= int(np.prod(nlist))
+    
+    def root(self,args):
+        #take the nth root of x
+        # gets the nth root of x 
+        num = int(args['param'][0][:-2])
+        self.symbols[args['obj']] **= 1/num
+        
+    def pow(self,args): #str, str
+        #raise x to the nth power
+        num = int(args['param'][0][:-2])
+        self.symbols[args['obj']] **= num
+    
+    def mod(self,args): #str, int
+        #mod x by n
+        num = int(args['param'][0])
+        self.symbols[args['obj']] %= num
+        
+    def absolute_value(self, args):
+        #take the absolute value of x
+        num = int(args['param'][0])
+        self.symbols[args['obj']] = abs(num)
 
-    def multiply(self, list):
-        # Returns the multiplication of the list. (list)
-        prod = list.pop(0)
-        for i in list:
-            prod = prod * i
-        return prod
+    #####################################################################
+    ###                      MATH LIST FUNCTIONS                      ###
+    #####################################################################
+        
+    def mean(self, args):
+        # Returns the mean of a list of numbers/variables (list)
+        nlist = self.symbols[args['obj']]
+        var = args['param'][0]
+        self.symbols[var] = np.mean(nlist)
 
-    def square_root(self, x):
-        # Returns the square root of a number. (int)
-        return math.sqrt(x)
-
-    def power(self, x, y):
-        # Returns x to the power of y. (int, int)
-        return (math.pow(x, y))
-
-    def absolute_value(self, number):
-        # Returns distance from zero (int)
-        return abs(number)
-
+    def median(self, args):
+        # Returns the median from a list of numbers (list)
+        nlist = self.symbols[args['obj']]
+        var = args['param'][0]
+        self.symbols[var] = np.median(nlist)
+        
+    def mode(self, args):
+        #Returns the mode and the number of times it is repeated (key, value) from a list of numbers (list)
+        nlist = self.symbols[args['obj']]
+        var = args['param'][0]
+        self.symbols[var] = max(set(nlist), key = nlist.count)
+        
+    def standard_dev(self, args):
+        #Returns the standard deviation of a list
+        nlist = self.symbols[args['obj']]
+        var = args['param'][0]
+        self.symbols[var] = np.std(nlist)
+        
+    def variance(self, args):
+        #Returns the average of squared deviations
+        nlist = self.symbols[args['obj']]
+        var = args['param'][0]
+        self.symbols[var] = np.var(nlist)
+        
+    #####################################################################
+    ###                      GEOMETRIC FUNCTIONS                      ###
+    #####################################################################
+    
     def circumference(self, radius, uom):
         # Returns circumference of a circle (int, string)
         y = (2 * (math.pi) * radius)
@@ -260,91 +307,116 @@ class SIMPL_Processor:
             return "{} {}".format(r, uom)
         else:
             print("Shape not included.")
-
-    def greater_than(self, x, y):
-        # Returns which value is greater (int, int)
-        if x > y:
-            return x
-        if y > x:
-            return y
-        else:
-            return "They are equal."
-
-    def less_than(self, x, y):
-        # Returns which value is least (int, int)
-        if x < y:
-            return x
-        if y < x:
-            return y
-        else:
-            return "They are equal."
-
-    def equal_to(self, list):
-        # Determines if the values in the list are equal to one another (list)
-        old_num = list.pop(0)
-        counter = 0
-        for i in list:
-            if i != old_num:
-                counter = counter + 1
-        if counter > 0:
-            return False
-        else:
-            return True
+    
+    #####################################################################
+    ###                     COMPARATOR FUNCTIONS                      ###
+    #####################################################################
+    
+    def greater(self, args):
+        #see if element 0 is greater than element 1
+        elmt0 = args['param'][0]
+        elmt1 = args['param'][1]
+        return elmt0 > elmt1
+    
+    def greater_or_equal(self, args):
+        #see if element 0 is greater than or equal toelement 1
+        elmt0 = args['param'][0]
+        elmt1 = args['param'][1]
+        return elmt0 >= elmt1
+    
+    def less(self, args):
+        #see if element 0 is less than element 1
+        elmt0 = args['param'][0]
+        elmt1 = args['param'][1]
+        return elmt0 < elmt1
+    
+    def less_or_equal(self, args):
+        #see if element 0 is less than or equal to element 1
+        elmt0 = args['param'][0]
+        elmt1 = args['param'][1]
+        return elmt0 <= elmt1
+    
+    def equal(self, args):
+        #see if element 0 is equal to element 1
+        elmt0 = args['param'][0]
+        elmt1 = args['param'][1]
+        return elmt0 == elmt1
+	
+    def inclusive_between(self, args):
+        #see if element 0 is between element 1 and element 2 (where element 1 < element 2)
+        obj = self.symbols[args['obj']]
+        elmt0 = args['param'][0]
+        elmt1 = args['param'][1]
+        if(elmt0 < elmt1):
+            return ((obj >= elmt0) and (obj <= elmt1))
+	
+    def exclusive_between(self, args):
+        #see if element 0 is between element 1 and element 2 (where element 1 < element 2)
+        obj = self.symbols[args['obj']]
+        elmt0 = args['param'][0]
+        elmt1 = args['param'][1]
+        if(elmt0 < elmt1):
+            return ((obj > elmt0) and (obj < elmt1))
         
-    def mean(self, list):
-        # Returns the mean of a list of numbers/variables (list)
-        sum = 0
-        counter = 0
-        for i in list:
-            sum = sum + i
-            counter = counter + 1
-        return (sum / counter)
+    def inclusive_outside(self, args):
+        #see if element 0 is < element 1 or > element 2 (where element 1 < element 2)
+        obj = self.symbols[args['obj']]
+        elmt0 = args['param'][0]
+        elmt1 = args['param'][1]
+        if(elmt0 < elmt1):
+            return ((obj <= elmt0) or (obj >= elmt1))
+	
+    def exclusive_outside(self, args):
+        #see if element 0 is < element 1 or > element 2 (where element 1 < element 2)
+        obj = self.symbols[args['obj']]
+        elmt0 = args['param'][0]
+        elmt1 = args['param'][1]
+        if(elmt0 < elmt1):
+            return ((obj < elmt0) or (obj > elmt1))
+    
+    #####################################################################
+    ###                         LIST FUNCTIONS                        ###
+    ##################################################################### 
+            
+    def join(self, args):
+        #Join two lists together
+        self.symbols[args['obj']] += args['param'][0]
+    
+    def split(self, args): 
+        # Splits Existing String Variable By Character/string
+        keyword_switch = {"commas" : ",", 
+                          "periods" : "."}
+        text = args['param'][0]
+        char = args['param'][1]
+        
+        #if the split char/string is a keword, get the character equivalent
+        if(char in keyword_switch.keys()):
+            char = keyword_switch[char]
+        
+        self.symbols[args['obj']] = text.split(char)    
+    
+    def append(self, args):        
+        #add element to list
+        element = args['param'][0]
+        self.symbols[args['obj']].append(element)
 
-    def median(list):
-        # Returns the median from a list of numbers (list)
-        list.sort()
-        counter = 0
-        for i in list:
-            counter = counter + 1
-        med = int((counter - 1) / 2)
-        return list[med]
+    def remove(self, args):
+        #remove element from the list by index ('1st', '2nd', '3rd' => 0, 1, 2)
+        index = int(args['param'][0][:-2])-1
+        self.symbols[args['obj']].pop(index)
+    
+    def sort(self, args):
+        # Use Python Built-In Sort (In-Place)
+        direction = args['param'][0]
+        if(direction == "ascending"):
+            self.symbols[args['obj']].sort()
+        if(direction == "descending"):
+            self.symbols[args['obj']].sort(reverse=True)
 
-    def mode(self, list):
-        #Returns the mode and the number of times it is repeated (key, value) from a list of numbers (list)
-        c = Counter(list)
-        old_v = 0
-        old_k = 0
-        for k, v in c.items():
-            if v > old_v:
-                old_v = v
-                old_k = k
-        return (old_k, old_v)
-
-    # def draw_square(self, location, size, color):
-    #
-    #     self.master.title("Lines")
-    #     self.pack(fill=BOTH, expand=1)
-    #
-    #     canvas = Canvas(self)  # remove once canvas is defined somewhere else
-    #     canvas.create_rectangle(location['x'], location['y'], location['x'] + size['width'],
-    #                             location['y'] + size['height'],
-    #                             outline=color, fill=color)
-    #
-    #     canvas.pack(fill=BOTH, expand=1)
-
-    # def draw_oval(self,location,size,color):
-    #
-    #     self.master.title("Lines")
-    #     self.pack(fill=BOTH, expand=1)
-    #
-    #     canvas = Canvas(self) #remove once canvas is defined somewhere else
-    #     canvas.create_oval(location['x'], location['y'], location['x']+size['width'], location['y']+size['height'],
-    #                             outline=color, fill=color)
-    #
-    #     canvas.pack(fill=BOTH, expand=1)
-
-
-
+    
+    
+    
+    
 # * Miguel Tests
 # main_processor = SIMPL_Processor()  # Creating Instance Of Processor
 
