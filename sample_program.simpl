@@ -1,0 +1,29 @@
+Create x as an integer array
+create y as an integer array
+create z as an integer array
+set x to 0 1 2 3 4 5 6 7 8 9
+create i as an integer
+while i is less than 10
+multiply i by 5
+append i to y
+divide i by 5
+raise i to the 2nd power
+append i to z
+take the 2nd root of i
+add 1 to i
+close loop
+sort y ordered ascending
+remove the 1st element from y
+remove the 1st element from z
+plot x and y
+plot x and z
+get the standard deviation of z as d
+subtract 4 from d
+if d is inclusively between 10 and 20
+plot i and d
+also if d is exclusively outside 20 and 30
+say d
+otherwise
+join x to y
+print y
+close if
