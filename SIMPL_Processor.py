@@ -390,7 +390,15 @@ class SIMPL_Processor:
         if(direction == "descending"):
             self.symbols[args['obj']].sort(reverse=True)
 
-    
+    # def write_text(self,indent,line,text,font):
+    #     self.master.title("Lyrics")
+    #     self.pack(fill=BOTH, expand=1)
+    #
+    #     canvas = Canvas(self)
+    #     canvas.create_text(indent['x'], line['y'], anchor=W, font=['font'], text=text)
+    #
+    #
+    #     canvas.pack(fill=BOTH, expand=1)
     
     
     
