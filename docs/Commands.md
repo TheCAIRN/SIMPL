@@ -53,7 +53,7 @@
 -	[x]DRAW **{size}** **{color}** **{shape}** AT | IN **{location}**
 	-	EX phrase: draw a large blue circle in middle
 	-	possibly add more commands for thickness and color diversity
--	[ ]WRITE **{text}** **{line)** **{font}** OPTIONAL **{indent}** 
+-	[x]WRITE **{text}** **{line)** OPTIONAL **{font}** OPTIONAL **{indent}** 
 	-	EX phrase: write "the trees blew south" on line 4 with arial font single indent
 -	[ ]IMAGE ADD **{variable name}**
 	-	a file selector/url paster will pop up
