@@ -41,23 +41,23 @@
 -   [ ] Minimum/Maximum value (in a list) - MINIMUM VALUE OF **{variable}** / MAXIMUM VALUE OF **{variable}** 
 -   [ ] Random Integer - SET **{variable}** TO RANDOM VALUE
 -   [ ] Exponent - SET **{variable}** TO THE POWER OF **{variable}**
--   [x]Mean - MEAN OF **{variable}**
--   [x]Median - MEDIAN OF **{variable}**
--   [x]Mode - MODE OF **{variable}** 
--   [ ]Standard Deviation - STANDARD DEVIATION OF **{variable}**
--   [ ]Graph Plot - PLOT {variable}** AND **{variable}**
--   [ ]Correlation - CORRELATION OF **{variable}**
+-   [x] Mean - MEAN OF **{variable}**
+-   [x] Median - MEDIAN OF **{variable}**
+-   [x] Mode - MODE OF **{variable}** 
+-   [ ] Standard Deviation - STANDARD DEVIATION OF **{variable}**
+-   [ ] Graph Plot - PLOT {variable}** AND **{variable}**
+-   [ ] Correlation - CORRELATION OF **{variable}**
 
 ## Graphics Commands
 
--	[x]DRAW **{size}** **{color}** **{shape}** AT | IN **{location}**
+-	[x] DRAW **{size}** **{color}** **{shape}** AT | IN **{location}**
 	-	EX phrase: draw a large blue circle in middle
 	-	possibly add more commands for thickness and color diversity
--	[x]WRITE **{text}** **{line)** OPTIONAL **{font}** OPTIONAL **{indent}** 
+-	[x] WRITE **{text}** **{line)** OPTIONAL **{font}** OPTIONAL **{indent}** 
 	-	EX phrase: write "the trees blew south" on line 4 with arial font single indent
--	[ ]IMAGE ADD **{variable name}**
+-	[ ] IMAGE ADD **{variable name}**
 	-	a file selector/url paster will pop up
--	[ ]IMAGE DELETE **{variable name}**
+-	[ ] IMAGE DELETE **{variable name}**
 	-	hovering over an image will show its variable name if you forget it
  
 ## Output commands:
