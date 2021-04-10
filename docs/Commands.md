@@ -6,7 +6,7 @@
 
 ## Program navigation commands:
 
--   [x] READ LINE|LINES **{number}** TO **{number}** | [THE] END
+-   [x] READ LINE | LINES **{number}** TO **{number}** | [THE] END
 -   [ ] STOP READING
 -   [ ] [GO TO THE] **[beginning of | end of]** LINE **{number}**
 -   [x] CHANGE LINE **{number}** TO **{command}**
@@ -37,16 +37,19 @@
 -   [x] ADD **{variable}** AND **{variable}**
     -   For string concetenation and number variables
 -   [x] SUBTRACT **{variable}** BY **{variable}**
--   [ ] Absolute value - ABSOLUTE VALUE OF **{variable}**
--   [ ] Minimum/Maximum value (in a list) - MINIMUM VALUE OF **{variable}** / MAXIMUM VALUE OF **{variable}** 
--   [ ] Random Integer - SET **{variable}** TO RANDOM VALUE
--   [ ] Exponent - SET **{variable}** TO THE POWER OF **{variable}**
--   [x] Mean - MEAN OF **{variable}**
--   [x] Median - MEDIAN OF **{variable}**
--   [x] Mode - MODE OF **{variable}** 
--   [ ] Standard Deviation - STANDARD DEVIATION OF **{variable}**
--   [ ] Graph Plot - PLOT {variable}** AND **{variable}**
--   [ ] Correlation - CORRELATION OF **{variable}**
+-   [ ] ABSOLUTE VALUE OF **{variable}**
+-   [ ] MINIMUM VALUE OF **{variable}**
+-   [ ] MAXIMUM VALUE OF **{variable}** 
+-   [ ] SET **{variable}** TO RANDOM VALUE
+    -   For assigning random numbers     
+-   [ ] SET **{variable}** TO THE POWER OF **{variable}**
+    -   For exponents   
+-   [x] MEAN OF **{variable}**
+-   [x] MEDIAN OF **{variable}** 
+-   [x] MODE OF **{variable}** 
+-   [ ] STANDARD DEVIATION OF **{variable}**
+-   [ ] PLOT {variable}** AND **{variable}** (for graphing points on a plot)
+-   [ ] CORRELATION OF **{variable}** 
 
 ## Graphics Commands
 
