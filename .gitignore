@@ -2,3 +2,4 @@
 ._Responsibilities
 __pycache__/
 settings.json
+sql/dbconfig.php
