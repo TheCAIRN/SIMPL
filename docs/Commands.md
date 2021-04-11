@@ -72,4 +72,8 @@
 
 ## Input commands:
 
+## Database Connectivity Commands:
+- [ ] CONNECT TO DATABASE **{Name}**
+- [ ] STOP CONNECTION TO DATABASE **{Name}**
+
 ### ** TO DO **
