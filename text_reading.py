@@ -61,8 +61,9 @@ def audio_input():
    return speech
 
 #speaking("Please begin speaking.") #submits the text into the mp3 file and prompts user to speak
-intro_speaking("Hello, welcome to SIMPL, a voice based programming language developed by Cairn university.")
-start_speaking("Let's Begin with a test, Please repeat this line: Create Variable X")
+#intro_speaking("Hello, welcome to SIMPL, a voice based programming language developed by Cairn university.")
+start_speaking("begin Talking")
+#start_speaking("Let's Begin with a test, Please repeat this line: Create Variable X")
 
 
 text = audio_input() #begins to take the input by refrencing the audio input class
