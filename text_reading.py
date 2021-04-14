@@ -61,17 +61,17 @@ def audio_input():
    return speech
 
 #speaking("Please begin speaking.") #submits the text into the mp3 file and prompts user to speak
-intro_speaking("Hello and welcome to SIMPL or simple, a programming language based off voice developed by Cairn university.")
-start_speaking("Please Begin Speaking")
+intro_speaking("Hello, welcome to SIMPL, a voice based programming language developed by Cairn university.")
+start_speaking("Let's Begin with a test, Please repeat this line: Create Variable X")
 
 
 text = audio_input() #begins to take the input by refrencing the audio input class
-
+import SIMPL_Parser
+SIMPL_Parser.parse(text)
 
 #Tim included this if statement where it takes the text said and if the text is in the string then it responds by speaking.
 if "set" in text:
     import SIMPL_Parser
-    
     # speaking("hi dan")
 else:
     speaking("Please try again")
