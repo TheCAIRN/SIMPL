@@ -74,8 +74,10 @@
 
 ## Database Connectivity Commands:
 - [ ] CONNECT TO DATABASE **{Name}**
-- [ ] LOGIN AS {userid} WITH PASSWORD {password | passphrase}
-- [ ] LOGOUT AS {userid} 
+- [ ] LOGIN AS **{userid}** WITH PASSWORD **{password | passphrase}**
+  -   When setting up the database, create allowed users and set up recorded passphrases to compare and verify
+- [ ] VIEW TABLE ** {Table Name} **
+- [ ] SELECT ALL FROM ** {Table Name} **
 - [ ] STOP CONNECTION TO DATABASE **{Name}**
 
 ### ** TO DO **
