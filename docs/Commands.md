@@ -74,6 +74,7 @@
 
 ## Database Connectivity Commands:
 - [ ] CONNECT TO DATABASE **{Name}**
+- [ ] LOGIN AS {userid} WITH PASSWORD {password | passphrase}
 - [ ] STOP CONNECTION TO DATABASE **{Name}**
 
 ### ** TO DO **
