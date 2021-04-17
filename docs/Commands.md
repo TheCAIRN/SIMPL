@@ -73,8 +73,8 @@
 ## Input commands:
 
 ## Database Connectivity Commands:
-  -   When setting up the database, create list of allowed users and set up recorded passphrases to compare and verify for the future
 - [ ] CONNECT TO DATABASE **{Name}**
+  -   When setting up the database, create list of allowed users and set up recorded passphrases to compare and verify for the future
 - [ ] LOGIN AS **{userid}** WITH PASSWORD **{password | passphrase}**
 - [ ] VIEW TABLE ** {Table Name} **
 - [ ] SELECT ALL FROM ** {Table Name} **
