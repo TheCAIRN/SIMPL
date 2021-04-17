@@ -76,8 +76,8 @@
 - [ ] CONNECT TO DATABASE **{Name}**
   -   When setting up the database, create list of allowed users and set up recorded passphrases to compare and verify for the future
 - [ ] LOGIN AS **{Userid}** WITH PASSWORD **{Password | passphrase}**
-- [ ] VIEW TABLE ** {Table Name} **
-- [ ] SELECT **{ALL | COLUMN NAME | COLUMN NAME, COLUMN NAME}** FROM ** {Table Name} **
+- [ ] VIEW TABLE **{Table Name}**
+- [ ] SELECT [ALL | COLUMN NAME | COLUMN NAME, COLUMN NAME] FROM **{Table Name}**
 - [ ] STOP CONNECTION TO DATABASE **{Name}**
 
 ### ** TO DO **
