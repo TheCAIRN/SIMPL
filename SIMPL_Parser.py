@@ -27,6 +27,8 @@ def parse (line_input):
     all_cmds = [[line_input.find(key), key] for key in pfd.commands.keys()]
     
     #get the primary command the user is using
+    #This Command below is spitting an error and I'm not sure why. WHen we parse a command it explains that the list
+    # index is out of range
     cmd = pfd.commands[sorted([cmd for cmd in all_cmds if (cmd[0] >= 0)], key=lambda e: e[0])[0][1]]
 
     
@@ -42,7 +44,7 @@ def parse (line_input):
             
             values.append(val.strip())
         else:
-            line_input = line_input = line_input[len(key):]
+            line_input = line_input[len(key):]
             
     #eventually the remaining will also be searched for flags
     if(line_input != ""):
@@ -53,28 +55,29 @@ def parse (line_input):
     #data to send to any given function
     data = {'obj' : None, 'param' : []}
     model = cmd.model.replace('C', '').replace('K', '')
-    for indx, char in enumerate(model):
+    while(indx < len(values)):
+        for indx, char in enumerate(model):
         #objects are variables in the system
-        if(char == 'O'):
-            #if it exists, send the name, otherwise error
-            if((values[indx] in pfd.f.symbols) or (cmd.command in ['set', 'create'])):
-                data['obj'] = values[indx]
-            else:
-                raise Exception("Cannot find variable %s" % values[indx])
+            if(char == 'O'):
+                #if it exists, send the name, otherwise error
+                if((values[indx] in pfd.f.symbols) or (cmd.command in ['set', 'create'])):
+                    data['obj'] = values[indx]
+                else:
+                    raise Exception("Cannot find variable %s" % values[indx])
         #parameters can be variables in the system or things to be casted
-        elif (char == 'P'):
-            #if it is a variable, sent it, otherwise cast to the right type
-            if(values[indx] in pfd.f.symbols):
-                if(cmd.parameters[indx] >= 6):
-                    data['param'].append([pfd.f.symbols[values[indx]]])
+            elif (char == 'P'):
+                #if it is a variable, sent it, otherwise cast to the right type
+                if(values[indx] in pfd.f.symbols):
+                    if(cmd.parameters[indx] >= 6):
+                        data['param'].append([pfd.f.symbols[values[indx]]])
+                    else:
+                        data['param'].append(pfd.f.symbols[values[indx]])
                 else:
-                    data['param'].append(pfd.f.symbols[values[indx]])
-            else:
-                #do type casting
-                if(data['obj'] in pfd.f.symbols):
-                    data['param'].append(TYPE.cast(values[indx], cmd.parameters[indx], pfd.f.symbols[data['obj']]))
-                else:
-                    data['param'].append(TYPE.cast(values[indx], cmd.parameters[indx], None))     
+                    #do type casting
+                    if(data['obj'] in pfd.f.symbols):
+                        data['param'].append(TYPE.cast(values[indx], cmd.parameters[indx], pfd.f.symbols[data['obj']]))
+                    else:
+                        data['param'].append(TYPE.cast(values[indx], cmd.parameters[indx], None))
                     
     #print(data)
     out = cmd.function(data)
