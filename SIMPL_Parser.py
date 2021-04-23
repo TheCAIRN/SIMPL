@@ -29,7 +29,13 @@ def parse (line_input):
     #get the primary command the user is using
     #This Command below is spitting an error and I'm not sure why. WHen we parse a command it explains that the list
     # index is out of range
-    cmd = pfd.commands[sorted([cmd for cmd in all_cmds if (cmd[0] >= 0)], key=lambda e: e[0])[0][1]]
+    # After editing the command below from this:
+    # cmd = pfd.commands[sorted([cmd for cmd in all_cmds if (cmd[0] >= 0)], key=lambda e: e[0])[0][1]]
+    # to this:
+    #cmd = pfd.commands[sorted([cmd for cmd in all_cmds if (cmd[0] >= 0)], key=lambda e: e[0])[0]]
+    # We get a type error. TypeError: unhashable type: 'list' In other words we're cobining type list and key.
+    # This might need a whole restructuring
+    cmd = pfd.commands[sorted([cmd for cmd in all_cmds if (cmd[0] >= 0)], key=lambda e: e[0])[0]]
 
     
     #seperate the data from the structure
