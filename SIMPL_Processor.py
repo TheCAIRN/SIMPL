@@ -16,6 +16,9 @@ import os.path
 import math
 import decimal
 import numpy as np
+import mysql.connector 
+# need to install the python mysql connector using pip, 
+# but might be able to install it using either git or the source code if that doesn't work out
 from matplotlib import pyplot as plt
 from collections import Counter
 from DataType import DataTypes as dtype
@@ -401,7 +404,13 @@ class SIMPL_Processor:
     #     canvas.pack(fill=BOTH, expand=1)
     
     
-    
+  #####################################################################
+  ###                 DATABASE CONNECTION FUNCTIONS                 ###
+  #####################################################################
+  
+  #def connect(self, args):
+		
+      # Use Python 
 # * Miguel Tests
 # main_processor = SIMPL_Processor()  # Creating Instance Of Processor
 
