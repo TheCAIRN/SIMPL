@@ -123,6 +123,12 @@ speak = profile("tell me", [], "CO", ["any arr"], process.say)
 #LOGIC
 #different linguistic. More next week
 
+#DATABASE FUNCTIONS
+connect_database = profile("connect database", [], "CO", ["str"], process.connect_database)                                                                        
+login_database = profile("login database", ["as"], ["with"],  "CO", ["str"], process.login_database)
+view_table = profile("view table", [], "CO", ["str"], process.view_table)
+# find a clear and concise way to select all column names or some
+disconnect_database = profile("disconnect database", [], "CO", ["str"], process.disconnect_database)
 
 #Don't need LINE function anymore
 #SIMPL Processor should be a Library of functions, not a class
