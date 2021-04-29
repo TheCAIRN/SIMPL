@@ -10,13 +10,15 @@ Notes:
 Sources:
 - https://stackoverflow.com/questions/3277503/
 how-to-read-a-file-line-by-line-into-a-list
+- https://www.mysqltutorial.org/python-connecting-mysql-databases/ 
 """
 
 import os.path
 import math
 import decimal
 import numpy as np
-import mysql.connector 
+import mysql.connector
+from mysql.connector import Error
 # need to install the python mysql connector using pip, 
 # but might be able to install it using either git or the source code if that doesn't work out
 from matplotlib import pyplot as plt
@@ -408,9 +410,26 @@ class SIMPL_Processor:
   ###                 DATABASE CONNECTION FUNCTIONS                 ###
   #####################################################################
   
-  #def connect(self, args):
-		
-      # Use Python 
+  def connect(self, args):
+       # set the connection to none 
+       conn = None
+       
+       # if the connection is none, then try connecting using the corresponding user credentials
+       try: 
+            conn = mysql.connector.connect(host='localhost', database='{name of SIMPL database}', 
+					   user='{userid}', password='{user''s passphrase}')
+	    if conn.is_connected():
+	        print('Connection successful')
+	
+	# if there was no connection, then display error message
+	except Error as e:
+            print(e)
+	
+	# if the connection was successful, then close it
+	finally:
+	    if conn is not None and conn.is_connected():
+		conn.close()
+          
 # * Miguel Tests
 # main_processor = SIMPL_Processor()  # Creating Instance Of Processor
 
