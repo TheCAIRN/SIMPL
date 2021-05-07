@@ -1,0 +1,34 @@
+Testing The SIMPL-Master program 
+	Done by Dave Ng'ang'a
+I have dublicated the entire SIMPL project and made some minor edits to each specific file as explained below 
+My intent was to create a testable iteration of the whole program that works when run.
+
+A summery of the program logic: 
+	From what I understand it seems like the program follows this logic. 
+	Front_end.py -> Text_reading.py -> SIMPLE_Parser.py/ParseFunctionDefinitinos -> SIMPL_Processor.py/SIMPL_Interpretor/SIMPL_Compiler
+		DataType.py and ParseFuncitonDefinitions.py are both dictionary files
+			ParseFuncitonDefinitions.py - contains Profiles of different functions. 
+				Profiles are a new data type created for the programming language. A profile requires a command, keyword, model, parameters, and a function:
+				for example: profile("subtract", ["from"], "CPKO", [TYPE.INT_ARR, TYPE.INT], f.subtract)
+			DataType.py - Stores Keywords and their defailt variables. 
+				Has several Return functions and cast functions. It's a bit like the ParseFunctionDefinitions.py except more focused on the types of variables and not the functions present.
+Edits to each file
+	Front_end.py - Not edited
+	Text-reading.py - 
+		Commented out line 69 (text = audio_input()) Because at this moment (May 2nd 2021) the speech to text part of the program is working. This Test iteration Mainly tests whether or not the functions within the program work4
+			Commented out line 63-66 for the same reason as above
+		Inserted print(SIMPL_Parser.parse("Create X as String")) in line 71. 
+			So The main purpose of this is to test the Parse function. To see whether or not it's able to convert the text into actually commands our compiler can execute. 
+				This step seems to check out ie. The program is able to parse and store commands from text.
+	SIMPL_Processor.py - I haven't touched this at all. Largely cause I'm slightly confused as to how parsing actually works. 
+		Basically what I don't understand is how the program stores the data created from the functions it executes. It doesn't make any sense.
+		My Instinct is to add the functions save_project and run_project after every block of succesfuly parsed code so that Output can be tangible seen and stored by the user.
+			the above is what I end up doing
+		I rearrange the run_project function and place it above every other so that every function is able to call run_function at the end of it's code. The problem is, Run_function doesn't actually do anything. 
+		So while the copiler/parser seems to be working. There is no Executing function. 
+	SIMPL_Parser.py -
+		In line 41 I added print(cmd._str_())
+			I created The fucntion _str_ to return the values of the varriable attached to it. Think of it like a get method that in this case returns a list of the commands.
+	DataType.py - Did not touch this file 
+	ParsFunctionDefinitions.py -
+		Created the _str_ function that is explained under SIMPL_Parser.py
